@@ -1,5 +1,6 @@
 library(dplyr)
 library(stringr)
+library(ggplot2)
 
 survey_df <- read.csv("data/MentalHealth_Survey_SAM.csv", stringsAsFactors = FALSE)
 View(survey_df)
@@ -107,3 +108,17 @@ subset %>%
   group_by(phys_health_interview) %>%
   summarise(count=n()) %>%
   arrange(-count)
+
+#summarize the data
+subset_1 <- subset %>%
+  group_by(supervisor) %>%
+  summarize(
+    count=n()
+  )
+
+#make the order yes, no and some of them.
+subset_1$supervisor <- factor(subset_1$supervisor, levels = c("Yes", "No", "Some of them"))
+
+#make the bar chart
+plot <- ggplot(subset_1, aes(x = supervisor, y = count)) +
+  geom_col()
