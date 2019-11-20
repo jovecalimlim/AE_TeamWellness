@@ -7,10 +7,10 @@
 #    http://shiny.rstudio.com/
 #
 
-#initial code setup
+#Initial library/source files set-up
 library(shiny)
 
-#Pages 1-7 instantiated and set up for use
+#Pages 1-7 instantiated and structured for use
 page_one <- tabPanel(
     "Introduction",
     titlePanel("Mental Health in the Technology Workplace"),

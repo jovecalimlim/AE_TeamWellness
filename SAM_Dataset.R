@@ -1,55 +1,67 @@
 library(dplyr)
 library(stringr)
 library(ggplot2)
+library(forcats)
 
-survey_df <- read.csv("data/MentalHealth_Survey_SAM.csv", stringsAsFactors = FALSE)
-View(survey_df)
-
-subset <- survey_df %>%
-  mutate(year = substr(survey_df$Timestamp, 1, 4)) %>%
-  select(-treatment, -benefits, -comments, -Timestamp, -mental_health_consequence, -phys_health_consequence, -work_interfere, -mental_vs_physical, -obs_consequence, -leave, -anonymity)
-
-#count the number of people who work in tech company
-nrow(filter(subset, tech_company == "Yes"))
-
-#count the number of people who work in tech company
-nrow(filter(subset, tech_company == "No"))
-
-#count the number of person from each states
-subset %>%
-  group_by(state) %>%
-  summarise(count=n()) %>%
-  arrange(count)
+survey_df <- read.csv("../data/MentalHealth_Survey_SAM.csv", stringsAsFactors = FALSE)
 
 #count the number of person from each country they are from
-Num_country <- subset %>%
+num_country <- survey_df %>%
   group_by(Country) %>%
   summarise(count=n()) %>%
-  arrange(count)
+  arrange(count) %>% 
+  View()
+
+us_only_survey_df <- survey_df %>%
+  mutate(year = substr(survey_df$Timestamp, 1, 4)) %>%
+  filter(Country == "United States") %>% 
+  select(-treatment, -benefits, -comments, -Timestamp, -mental_health_consequence, 
+         -phys_health_consequence, -work_interfere, -mental_vs_physical, -obs_consequence, 
+         -leave, -anonymity) %>% 
+  View()
+
+#count the number of people who work in tech companies
+num_tech_workers <- nrow(filter(us_only_survey_df, tech_company == "Yes"))
+num_tech_workers
+
+#count the number of people who do not work in tech companies
+num_nontech_workers <- nrow(filter(us_only_survey_df, tech_company == "No"))
+num_nontech_workers
+
+#count the number of person from each states
+people_per_state <- us_only_survey_df %>%
+  group_by(state) %>%
+  summarise(count=n()) %>%
+  arrange(count) %>% 
+  View()
 
 #categorized number of workers
-subset %>%
+num_companies_per_size <- us_only_survey_df %>%
   group_by(no_employees) %>%
   summarise(count=n()) %>%
-  arrange(count)
+  arrange(count) %>% 
+  View()
 
 #Count how many people work remotely (outside of an office) at least 50% of the time
-subset %>%
+num_remote_workers <- us_only_survey_df %>%
   group_by(remote_work) %>%
   summarise(count=n()) %>%
-  arrange(count)
+  arrange(count) %>% 
+  View()
 
 #Count the number of people in every ages.
-subset %>%
-  group_by(Age) %>%
-  summarise(count=n()) %>%
-  arrange(-count)
+us_only_survey_df$Age_Group <-cut(us_only_survey_df$Age, breaks = seq(15,85,by=10), right = TRUE)
+num_people_per_age <- us_only_survey_df %>%
+  group_by(Age_Group) %>%
+  count(Age_Group) %>%
+  View()
 
 #count the number of people in each gender
-Num_Gender <- subset %>%
+num_Gender <- us_only_survey_df %>%
   group_by(Gender) %>%
   summarise(count=n()) %>%
-  arrange(-count)
+  arrange(-count) %>% 
+  View()
 
 #count the number of people that know the employers provide a care option
 subset %>%

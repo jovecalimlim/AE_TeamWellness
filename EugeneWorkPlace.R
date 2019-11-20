@@ -20,3 +20,4 @@ affected <- mental_data %>%
   summarize(total_affected = n())
 
 #Age, gender, state, role, statistics (percentage of 3 big types of disorder, willing to bring up mental health with employer, know about mental health coverage options yes/no, 
+
