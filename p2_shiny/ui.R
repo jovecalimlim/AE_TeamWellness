@@ -12,13 +12,13 @@ library(shiny)
 page_one <- tabPanel(
     "Introduction",
     titlePanel("Mental Health in the Technology Workplace"),
-    
+    p("Placeholder Intro Paragraph")
 )
 
 page_two <- tabPanel(
     "Background",
-    titlePanel("Background Information and our Research Questions")
-
+    titlePanel("Background Information and our Research Questions"),
+    p("Placeholder Background Info Paragraph")
 )
 
 page_three <- tabPanel(
@@ -32,7 +32,7 @@ page_three <- tabPanel(
             h3("Viz.")
         )
     ),
-    p("Findings")
+    p("Placeholder Research Findings Paragraph")
 )
 
 page_four <- tabPanel(
@@ -46,25 +46,25 @@ page_four <- tabPanel(
             h3("Viz.")
         )
     ),
-    p("Findings")
+    p("Placeholder Research Findings Paragraph")
 )
 
 page_five <- tabPanel(
     "Conclusion",
     titlePanel("What We Found"),
-    
+    p("Placeholder Conclusion Paragraph")
 )
 
 page_six <- tabPanel(
-    "Technical Report",
-    titlePanel("Link To Report"),
-    
+    "Technical Info",
+    titlePanel("Our Technical Report"),
+    p("Placeholder Tech Report Link")
 )
 
 page_seven <- tabPanel(
     "About Us",
     titlePanel("Who We Are"),
-    
+    p("Placeholder About Us Paragraph")
 )
 
 shinyUI(navbarPage(
