@@ -1,0 +1,98 @@
+### Team Wellness Identifying Mental Health Stressors In The Workplace
+
+#### Project Get Better By Any Means Necessary
+
+_Ryan Bogatez_
+_Samuel Christ_
+_Jove Calimlim_
+_Eugene Lim_
+
+_INFO-201: Technical Foundations of Informatics_
+_The Information School_
+_University of Washington_
+_Autumn 2019_
+
+#### 1.0 Introduction
+
+###### 1.1 Problem Situation
+
+Mental health has become an increasingly hot issue in the workplace. The mental health of employees is being negatively impacted by numerous factors within the workplace. Due to this, there is an increased strain on worker performance which is also negatively affecting company results. Currently, mental health is a stigmatized topic in the workplace, and as such, is an area of high confidentiality between employees and employers.
+
+Some direct stakeholders are the employees themselves who are experiencing these mental health stressors and their employers whose business depends on the performance of these employees. Some indirect stakeholders include the families of these employees, who see the changes in the employee's mental health when they aren't working, and the communities these employees live in whose moods can potentially affect those around them when outside the workplace.
+
+How we view mental health as a society is currently in play, as an increasing amount of people are beginning to see the importance of mental health in the United States. More and more people and organizations have taken a staunch position on promoting mental health and improving the factors within the workplace that impact it, such as how many hours we work in a week, job security, fair wages, etc.
+
+The biggest stake in this issue is the livelihood of people not just in tech companies within the United States, but every single human being in the world. How we perform at work heavily depends on how we feel not only physically but mentally. Our jobs are what allow us to continue living the lifestyles that having a sustainable wage allows us, and having that at stake should make mental health a much bigger talking point in our society.
+
+Currently, there are some policies being put in place by employers to help improve the wellbeing of their employees. For example, Nike has many employee benefits such as an Employee Assistance Program that provides their employees with professional counselors to talk about any personal or professional problems. Some countries like Japan have experimented with a four day work week instead of the traditional five day work week here in the United States.
+
+Our group cares about this topic because we have heard of first-hand accounts of employees cracking under intense stress within tech companies like Amazon, and as young Informatics majors looking to go into the tech field, we want to help improve the environment we go into not just for ourselves, but for everyone.
+
+###### 1.2 What Is The Problem?
+
+Approximately half of millennial workers and 75% of Gen-Zers have quit their jobs due to mental health reasons according to a survey conducted by Mind Share Partners, SAP, and Qualtrics. About 46.6 million US adults are dealing with mental illnesses, including depression and anxiety disorders. The main factors contributing to this is money, work load, and a negative working environment.
+
+###### 1.3 Why Does It Matter?
+
+Employee turnover has a huge cost for businesses, including rehiring, severance pay, and workplace morale. For the individual employees, this can lead to further anxiety and stress in finding a new job and explaining their situation to others. For our group, this topic is important to us because we will all be graduating at some point and joining this particular workforce.
+
+###### 1.4 How Will It Be Addressed?
+
+We will first be looking at various data sets that look at employee stress levels in the tech industry and cross check them for any common factors or answers that could potentially contribute to worker stress. We will then look for methods to mitigate the risks of mental health in the workplace and propose some solutions to provide a healthier workplace environment.
+
+#### 2.0 Research Questions
+
+The research questions that are guiding us along our project are:
+
+* What are some factors in the technology workplace (i.e. hours worked, number of employees in company, etc.) that have an impact on an employee's mental health?
+
+* What’s are some of the common mental health issues among different demographics of people  in the tech field based on:
+  * Age
+  * Gender
+  * Job Title
+  * Geography
+
+#### 3.0 Our Data Sets
+
+[Open Sourcing Mental Illness's (OSMI) Yearly Mental Health In Tech Survey](https://osmihelp.org/research)
+ 1. These data sets were created by a non-profit organization called Open Sourcing Mental Illness. Their mission is "to raise awareness, educate, and provide resources to support mental wellness in the tech and open source communities [[About OSMI](https://osmihelp.org/about/about-osmi)]". This data is gathered through a yearly survey that OSMI conducts, and then compiles these survey results into data sets.
+ 2. These data sets were created to help OSMI with their research in finding out what factors within tech and open source communities have an effect on someone's mental health.
+ 3. We accessed this data through OSMI's official website, where they host their data sets on Kaggle, free and available for anyone to use.
+ 4. An observation within this data set is a single individual's responses to the entire survey. Each individual is presumed to be a tech worker or involved in the open source community.
+ 5. Each observation's variables are all answers to a question on the survey, which could be a number (their age, how many employees are in their company, etc.), a custom string of text (what mental issue are you dealing with?), a binary response (are you self-employed?), or a a nominal response (how willing would you be to share with friends and family that you have a mental illness?). The following are some categories (survey questions) that are used (27 in total in each survey):
+  * age
+  * gender
+  * phys_health_interview
+  * tech_company
+  * care_options
+  * family_history
+ 6. We are using three data sets from OSMI. Each data set is a year that the survey was conducted, which in our case are 2016, 2017, and 2018. Each data set has 27 variables, which represent the 27 survey questions. For the 2016 data set, there are over 1400 responses. For the 2017 data set, there are over 756 observations. For the 2018 data set, there are over 400 responses.
+ 7. In these dat sets, tech workers and open source community members are represented in this data set, as that is the target audience. This data set does not include employees of other fields, such as business, retail, food workers, etc.
+
+#### 4.0 Info Visualizations
+
+![Figure 1 of Eugene's Interactive Map in R](https://github.com/jovecalimlim/AE_TeamWellness/blob/master/images/info1.png)
+_Figure 1. The first part of this infographic by the World Health Organization introduces the problem area of mental health in the workplace by putting into perspective the amount of effort and money that is being spent on mental wellbeing. This graphic is useful to us because it gives us an idea of what companies are prioritizing in terms of their employees._
+
+![Figure 2a of Sam's Various Bar Charts](https://github.com/jovecalimlim/AE_TeamWellness/blob/master/images/info2.png)
+_Figure 2a. The second part of this infographic by the World Health Organization shows what kind of services and policies being put into place in improving the mental health of employees across the world. This graphic is useful to us because it shows us what's currently being done to address the mental wellbeing of employees._
+
+#### 5.0 Team Coordination
+
+We plan to meet each week on Monday and Wednesday morning from 9:00 AM to 10:00 AM. After discussing our goals and what we want to get out of this class, we all want to become proficient in using the R programming language and being able to create meaningful and informative data visualizations to use in our future careers. We have all agreed to using Facebook Messenger for communication. Whenever we encounter work breakdowns or communication challenges, we will make sure to address them in-person before lecture on Monday and Wednesday, and if needed, rely on our amazing TA Benji Xie for any recommendations on working through these challenges.
+
+###### Dates of Unavailability:
+
+* Ryan: Nov. 18
+
+#### 6.0 References
+
+###### Sources:
+
+1. America’s mental health disparities. (2018, December 10). Retrieved November 4, 2019, from Counseling Today website: https://ct.counseling.org/2018/12/americas-mental-health-disparities-2/
+
+2. Hoffower, H. (n.d.). 50% of millennials have left a job for mental-health reasons, a new study found—And it speaks to some of the biggest problems plaguing the entire generation. Retrieved November 4, 2019, from Business Insider website: https://www.businessinsider.com/half-of-millennials-left-jobs-for-mental-health-reasons-2019-10
+
+3. WHO | Mental health in the workplace. (n.d.). Retrieved November 4, 2019, from WHO website: http://www.who.int/mental_health/in_the_workplace/en/
+
+4. WHO | Project Atlas. (n.d.). Retrieved November 4, 2019, from WHO website: http://www.who.int/mental_health/evidence/atlasmnh/en/
