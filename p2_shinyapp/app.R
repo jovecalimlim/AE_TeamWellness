@@ -83,8 +83,7 @@ page_six <- tabPanel(
     "Technical Info",
     titlePanel("Our Technical Report"),
     p("Placeholder Tech Report Summary Paragraph"),
-    p("Placeholder Tech Report Link")
-
+    uiOutput("tab")
 )
 
 page_seven <- tabPanel(
@@ -109,8 +108,10 @@ ui <- navbarPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-    output$plot <- renderPlot({
-        
+    url <- a("Technical Report", href = 
+                 "https://github.com/jovecalimlim/AE_TeamWellness/wiki/Technical-Report")
+    output$tab <- renderUI({
+        tagList("URL Link:", url)
     })
 }
 
