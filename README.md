@@ -3,3 +3,5 @@
 [Here](https://github.com/jovecalimlim/AE_TeamWellness/wiki/Project-Proposal) is a link to the Project Proposal.
 
 [Here](https://github.com/jovecalimlim/AE_TeamWellness/wiki/Technical-Report) is a link to the Technical Report.
+
+[Here](https://jovec.shinyapps.io/p2_shinyapp/) is a link to our Shiny app.
