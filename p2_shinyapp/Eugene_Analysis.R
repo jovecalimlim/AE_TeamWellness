@@ -5,7 +5,7 @@ library(knitr)
 library(leaflet)
 library(tigris)
 
-mental_data <- read.csv("../data/Eugene_Data_2016.csv", stringsAsFactors = FALSE)
+mental_data <- read.csv("Eugene_Data_2016.csv", stringsAsFactors = FALSE)
 states <- states(cb = T)
 
 #filter for only US

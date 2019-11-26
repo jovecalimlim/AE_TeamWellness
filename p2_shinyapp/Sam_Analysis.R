@@ -3,7 +3,7 @@ library(stringr)
 library(ggplot2)
 library(forcats)
 
-survey_df <- read.csv("../data/Sam_Data_2014.csv", stringsAsFactors = FALSE)
+survey_df <- read.csv("Sam_Data_2014.csv", stringsAsFactors = FALSE)
 
 # Count the number of person from each country they are from
 people_per_country <- survey_df %>%
