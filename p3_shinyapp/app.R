@@ -7,119 +7,165 @@
 #    http://shiny.rstudio.com/
 #
 
+# Initial library/source files set-up
 library(shiny)
-library(DT)
 source("analysis.R")
 
-# UI elements
+# Pages 1-7 instantiated and structured for use
 page_one <- tabPanel(
-    "About",
-    titlePanel("a7: ProPublica Congress API"),
-    
-    h2("Overview"),
-    p("This assignment has us creating and deploying a Shiny app that gives our users the ability
-      to look at detailed information about every member of the United States House of Representatives.
-      To access this information, we have been tasked with using ProPublica's Congress API to pull
-      information about members of the Unied State's Congress."),
-    p("To complete this assignment, I will be using R to interact with ProPublica's Congress API to
-      build a data frame containing all members of Congress and only keeping the columns that are 
-      relevant for displaying information within my Shiny app. From my Shiny app, you will be able
-      to view tables of the different states' House representatives, and see how each states' House
-      is broken up by gender and political party."),
-    p(a(href= "https://projects.propublica.org/api-docs/congress-api/", 
-        "Here is the link to ProPublica's Congress Api.")),
-    
-    h2("Affiliation"),
-    HTML(
-        paste("Jove Calimlim",
-              "INFO-201A: Technical Foundations of Informatics",
-              "The Information School",
-              "University of Washington",
-              "Autumn 2019", sep = "<br/>"
-        )
-    ),
-    
-    h2("Reflection"),
-    p("I thought working on this assignment gave me a good understanding of how Shiny apps work
-      and how I'd be able to use the features of Shiny apps to produce a meaningful and effective
-      way for users to interact with data in an easy and intuitive manner. Prior to taking this class,
-      I had no idea about the R language or data visualization tools but after working on a7 for awhile,
-      I now have a greater appreciation for the tools that we have available to us as data scientists to
-      make data more visibly appealing and understandable for the average person."),
-    p("But as always when working with data, you should always be vigiliant in making sure your data sets
-      that you use for any analysis is as valid and accurate as possible. There's no such thing as a perfect 
-      data with no bias, but reducing bias as much as possible whenever you gather data or making sure your 
-      sources are as transparent as possible helps battle an issue from O'Neil's Weapons of Math Destruction.
-      One issue O'Neil took with WMD's is that many of them used proxy data as stand-ins for data/metrics
-      that actually mean something. For example, personality tests being used to determine if a job
-      applicant would be fit for a position."
-    )
+  "Introduction",
+  titlePanel("Mental Health In The Technology Workplace"),
+  
+  h3("The Problem Situation"),
+  p("Mental health has become an increasingly hot issue in the workplace. The mental health of employees 
+    is being negatively impacted by numerous factors within the workplace. Due to this, there is an 
+    increased strain on worker's and their performance, which is also negatively affecting company results. 
+    Currently, mental health is a stigmatized topic in the workplace, and as such, is an area of high 
+    confidentiality between employees and employers."),
+  
+  h3("What is the Problem?"),
+  p("Approximately half of millennial workers and 75% of Gen-Zers have quit their jobs due to mental 
+    health reasons according to a survey conducted by Mind Share Partners, SAP, and Qualtrics. About 
+    46.6 million US adults are dealing with mental illnesses, including depression and anxiety disorders. 
+    The main factors contributing to this is money, work load, and a negative working environment.")
 )
 
 page_two <- tabPanel(
-    "Congress Table",
-    titlePanel("Congress Members by Chamber and State"),
-    sidebarLayout(
-        sidebarPanel(
-            selectInput("chamber", "Chamber:",
-                        choices = sort(unique(congress_df$chamber)),
-                        selected = "house"),
-            selectInput("state", "State:",
-                        choices = sort(unique(congress_df$state)),
-                        selected = "WA")
-        ),
-        mainPanel(
-            dataTableOutput("stateRepsTable"),
-            column(12, verbatimTextOutput("x4"))
-        )
-    )
+  "Background",
+  titlePanel("Why This Topic And What We Hope To Find"),
+  
+  h3("Why we care about Mental Health"),
+  p("Our group cares about this topic because we have heard of first-hand accounts of employees 
+    cracking under intense stress within tech companies like Amazon, and as young Informatics 
+    majors looking to go into the tech field, we want to help improve the environment we go into 
+    not just for ourselves, but for everyone."),
+  
+  h3("What we Hope to Answer"),
+  tags$li("Which states in the US seem to have a higher proportion of their tech workers 
+          affected by mental illnesses compared to other states?"), 
+  tags$li("Within each state, what mental health illnesses/disorders are people in the tech field 
+          dealing with?")
 )
 
 page_three <- tabPanel(
-    "Summary Charts",
-    titlePanel("Gender and Party Differences in the House by State"),
-    sidebarLayout(
-        sidebarPanel(
-            selectInput("summ_state", "State:",
-                        choices = sort(unique(congress_df$state)),
-                        selected = "WA")
-        ),
-        mainPanel(
-            plotOutput("genderPlot"),
-            plotOutput("partyPlot")
-        )
-    )
+  "Interactive Map",
+  titlePanel("Prevalence Of Mental Disorders Throughout The United States"),
+  interactive_map,
+  p("WIth our interactive map, we actually get some suprising results. New Hampshire has the highest
+    proportion of people who took the survey living in New Hampshire that reported being affected
+    by mental illnesses/disorders at 86%. Kentucky and Alaska follow close behind at 80% and 77%
+    respectively. We we're expected tech company-heavy states such as California and Washington to
+    have the highest proportion. Of course, this could be due to the relatively small sample size of
+    survey respondents, as there are only a total of about 800 survey respondents within the United
+    States. Still, over half of the survey respondents in both Washington and California reported
+    being affected by mental illnesses/disorders, which is a very significant amount of people.")
 )
 
+page_four <- tabPanel(
+  "Bar Charts",
+  titlePanel("Mental Disorders By State"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("summ_state", "State:",
+                  choices = sort(unique(osmi_df$State)),
+                  selected = "Washington")
+    ),
+    mainPanel(
+      plotOutput("statePlot")
+    )
+  ),
+  p("From these bar charts, we can see that for most states, anxiety and mood disorders are the most
+    common mental disorders that are plaguing tech workers in the United States. For example, in the
+    state of Washington, the top two most common mental disorders are mood disorders such as depression
+    and bipolar disorder with 25 affected survey respondents. Anxiety disorders such as social anxiety
+    and phobias are second with 17 affected survey respondents.")
+)
 
+page_five <- tabPanel(
+  "Conclusion",
+  titlePanel("What We Found"),
+  
+  h3("Results"),
+  p("With the data sets that we worked with and the visualizations we were able to create, we we're
+    able to answer our research questions to an extent. The sample sizes weren't quite as large as we'd
+    like, and it's very important to realize that. But we we're still able to gather some valuable insights
+    into how widespread mental health is in the United States within the tech industry. There are a variety
+    of mental disorders that are affecting workers, with some of the more common ones being various forms of
+    anxiety such as social anxiety, generalized anxiety, and panic disorders, or various forms of mood
+    disorders such as depression, bipolar disorder, and dysthymia. But there are tech workers that are
+    experiencing other types of disorders, like attention deficit hyperactivity disorder and post
+    traumatic stress disorder."),
+  p("Despite the somewhat low number of responses between the two data sets of the OSMI survey, we can see
+    that mental health is impacting tech employees in most states except Nevada, Missouri, Iowa, 
+    Indiana, Tennesse, Georgia, Ohio, West Virginia, Maryland, and Virginia. That is most likely due to
+    the low number of survey responses, as I imagine there companies/offices in these states that have some
+    form of IT/engineering/software development departments. As mentioned earlier, we we're expecting
+    tech company-heavy states such as Washington, California and New York to be at the top of our charts
+    for the proportion of tech workers surveyed in those states that are dealing with a mental illness/
+    disorder.")
+)
+
+page_six <- tabPanel(
+  "Technical Info",
+  titlePanel("Technical Specifications"),
+  
+  h3("The Data Sets"),
+  p("The two data sets we used were created by a non-profit organization called Open Sourcing Mental Illness. 
+    Their mission is \"to raise awareness, educate, and provide resources to support mental wellness 
+    in the tech and open source communities\". This data is gathered through a yearly
+    survey that OSMI conducts, and then compiles these survey results into data sets. These data sets 
+    were created to help OSMI with their research in finding out what factors within tech and open source 
+    communities have an effect on someone's mental health. We accessed this data through OSMI's official 
+    website, where they host their data sets on Kaggle, free and available for anyone to use."),
+  
+  h3("The Shiny App"),
+  p("With the help of a7, we we're able to create a Shiny app similar to how we structured a7. To create
+    the Shiny app's site navigation, we decided to use a navbarPage() layout that allowed us to insert
+    different page layouts and have an easy way to navigate in between. For our second visualization,
+    we made sure to use a sidebarLayout() to have our charts render on the right and have the widgets
+    that allow the user to select states on the left."),
+  p("We also used a variety of packages to help wrangle our data and create the visualizations. We
+    primarily used dplyr to wrangle that data and organize it into usuable data frames containing
+    relevant information for the task at hand. We used ggplot2, reshape2, and scales to create the 
+    bar charts used for our second visualization. We used knitr, leaflet, and tigris to create the
+    map used for our first visualization."),
+  
+  h3("Tech Report"),
+  p(a(href= "https://github.com/jovecalimlim/AE_TeamWellness/wiki/Technical-Report", 
+      "Here is the link to our Technical Report on GitHub.")),
+)
+
+page_seven <- tabPanel(
+  "About Us",
+  titlePanel("Who We Are"),
+  HTML(
+    paste("Ryan Bogatez",
+          "Jove Calimlim",
+          "Samuel Christ",
+          "Eugene Lim", sep = "<br/>"
+    )
+  ),
+)
+
+# UI pages set in navbarPage style
 ui <- navbarPage(
-    "a7: ProPublica Congress API",
-    page_one,
-    page_two,
-    page_three
+  "P3: Final Project",
+  page_one,
+  page_two,
+  navbarMenu("Visualizations",
+             page_three,
+             page_four
+  ),
+  page_five,
+  page_six,
+  page_seven
 )
 
-# Server functions
+# Define server logic required to draw a histogram
 server <- function(input, output) {
-    output$stateRepsTable <- renderDataTable(
-        get_reps_by_cham_state(input$chamber, input$state),
-        selection = "single"
-    )
-    
-    output$x4 = renderPrint({
-        s = input$stateRepsTable_rows_selected
-        if (length(s)) {
-            get_rep_by_name(s)
-        }
-    })
-    
-    output$genderPlot <- renderPlot({
-        gender_plot(input$summ_state)
-    })
-    
-    output$partyPlot <- renderPlot({
-        party_plot(input$summ_state)
-    })
+  output$statePlot <- renderPlot({
+    get_state_disorders(input$summ_state)
+  })
 }
 
 # Run the application 

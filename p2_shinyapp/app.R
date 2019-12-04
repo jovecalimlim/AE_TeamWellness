@@ -9,8 +9,7 @@
 
 # Initial library/source files set-up
 library(shiny)
-source("Eugene_Analysis.R")
-source("Sam_Analysis.R")
+source("analysis")
 
 # Pages 1-7 instantiated and structured for use
 page_one <- tabPanel(

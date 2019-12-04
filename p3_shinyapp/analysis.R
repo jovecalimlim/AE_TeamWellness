@@ -61,9 +61,9 @@ state_summ <- osmi_df %>%
             no = sum(`Mental Disorder` == "No"),
             possibly = sum(`Mental Disorder` == "Possibly"),
             unsure = sum(`Mental Disorder` == "Don't Know"),
-            prop = round((yes / (yes + no + possibly + unsure)), 2)
+            prop = round((yes / (yes + no + possibly + unsure)) * 100, 2)
             )
-
+# round(affected$total_affected / total_response$total_respondents * 100, digits = 2)
 states_merged <- geo_join(states, osmi_df, "STUSPS", "state")  
 pal <- colorNumeric("Greens", domain = state_summ$prop)
 interactive_map <- leaflet(states) %>%
@@ -74,11 +74,11 @@ interactive_map <- leaflet(states) %>%
               fillOpacity = 0.7,
               weight = 0.2,
               smoothFactor = 0.2,
-              popup = ~paste0("State: ", NAME, "<br>Proportion: ", state_summ$prop)) %>%
+              popup = ~paste0("State: ", NAME, "<br>Percent affected by Mental Issue: ", state_summ$prop)) %>%
   addLegend(pal = pal,
             values = state_summ$prop,
             position = "bottomright",
-            title = "Proportion of Survey Respondents with Mental Illness")
+            title = "Percentage of Survey Respondents diagnosed with a Mental Illness/Disorder")
   
 interactive_map
 
@@ -117,12 +117,15 @@ get_state_disorders <- function(given_state){
   
   return_plot_data_m <- melt(return_plot_data, id.vars = "State")
   
-  return_plot <- ggplot(subset(return_plot_data_m, State == given_state), aes(x = variable, y = value)) +
+  return_plot <- ggplot(subset(return_plot_data_m, State == given_state), 
+                        aes(x = variable, y = value, fill = variable)) +
     geom_bar(stat = "identity") +
     labs(x = "Disorders", y = "# of People") +
-    ggtitle(paste("# of People Affected by a Specific Disorder in", given_state)) +
-    scale_x_discrete(labels = wrap_format(10))
+    ggtitle(paste("# of People Affected by a Specific Mental Disorder in", given_state)) +
+    theme(legend.position = "none") +
+    theme(text = element_text(size=20)) +
+    scale_x_discrete(labels = wrap_format(10)) +
+    geom_text(aes(label=value), position=position_dodge(width=0.9), vjust=-0.25)
   
   return_plot
 }
-get_state_disorders("Texas")

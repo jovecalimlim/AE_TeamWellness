@@ -1,0 +1,12 @@
+name: p3_shinyapp
+title: p3_shinyapp
+username:
+account: jovec
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1561075
+bundleId: 2640981
+url: https://jovec.shinyapps.io/p3_shinyapp/
+when: 1575481043.52814
+asMultiple: FALSE
+asStatic: FALSE
