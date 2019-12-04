@@ -63,7 +63,7 @@ state_summ <- osmi_df %>%
             unsure = sum(`Mental Disorder` == "Don't Know"),
             prop = round((yes / (yes + no + possibly + unsure)) * 100, 2)
             )
-# round(affected$total_affected / total_response$total_respondents * 100, digits = 2)
+
 states_merged <- geo_join(states, osmi_df, "STUSPS", "state")  
 pal <- colorNumeric("Greens", domain = state_summ$prop)
 interactive_map <- leaflet(states) %>%
