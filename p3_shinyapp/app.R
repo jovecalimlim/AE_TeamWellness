@@ -141,7 +141,11 @@ page_seven <- tabPanel(
   HTML(
     paste("Ryan Bogatez",
           "Jove Calimlim",
-          "Samuel Christ",
+          "Samuel Christ: I’m an international student from Indonesia and just transferred from Edmonds Community College.
+I am also a content creator on YouTube with more than 900K subscribers!
+I enjoy creating short films and editing videos. 
+I’m very glad I can get into the Informatics major because there are a lot of designing classes in this major and that is what I want to do.
+Regarding to my skills, I think I am a creative person, can think in details and can do design.",
           "Eugene Lim", sep = "<br/>"
     )
   ),
