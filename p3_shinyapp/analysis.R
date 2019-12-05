@@ -10,15 +10,15 @@ library(scales)
 osmi_2017 <- read.csv("OSMI_2017.csv", stringsAsFactors = FALSE)
 osmi_2018 <- read.csv("OSMI_2018.csv", stringsAsFactors = FALSE)
 
-osmi_2017 <- osmi_2017 %>% 
-  mutate(survey_year = "2017") %>% 
-  filter(country == "United States of America") %>% 
+osmi_2017 <- osmi_2017 %>%
+  mutate(survey_year = "2017") %>%
+  filter(country == "United States of America") %>%
   select(age, gender, country, state, mental_disorder, survey_year,
          Anxiety.Disorder..Generalized..Social..Phobia..etc.,
-         Mood.Disorder..Depression..Bipolar.Disorder..etc., 
-         Psychotic.Disorder..Schizophrenia..Schizoaffective..etc., 
+         Mood.Disorder..Depression..Bipolar.Disorder..etc.,
+         Psychotic.Disorder..Schizophrenia..Schizoaffective..etc.,
          Eating.Disorder..Anorexia..Bulimia..etc.,
-         Attention.Deficit.Hyperactivity.Disorder, 
+         Attention.Deficit.Hyperactivity.Disorder,
          Personality.Disorder..Borderline..Antisocial..Paranoid..etc.,
          Obsessive.Compulsive.Disorder,
          Post.traumatic.Stress.Disorder,
@@ -27,16 +27,16 @@ osmi_2017 <- osmi_2017 %>%
          Substance.Use.Disorder,
          Addictive.Disorder,
          Other)
-         
-osmi_2018 <- osmi_2018 %>% 
-  mutate(survey_year = "2018") %>% 
-  filter(country == "United States of America") %>% 
+
+osmi_2018 <- osmi_2018 %>%
+  mutate(survey_year = "2018") %>%
+  filter(country == "United States of America") %>%
   select(age, gender, country, state, mental_disorder, survey_year,
          Anxiety.Disorder..Generalized..Social..Phobia..etc.,
-         Mood.Disorder..Depression..Bipolar.Disorder..etc., 
-         Psychotic.Disorder..Schizophrenia..Schizoaffective..etc., 
+         Mood.Disorder..Depression..Bipolar.Disorder..etc.,
+         Psychotic.Disorder..Schizophrenia..Schizoaffective..etc.,
          Eating.Disorder..Anorexia..Bulimia..etc.,
-         Attention.Deficit.Hyperactivity.Disorder, 
+         Attention.Deficit.Hyperactivity.Disorder,
          Personality.Disorder..Borderline..Antisocial..Paranoid..etc.,
          Obsessive.Compulsive.Disorder,
          Post.traumatic.Stress.Disorder,
@@ -48,12 +48,13 @@ osmi_2018 <- osmi_2018 %>%
 
 osmi_df <- bind_rows(osmi_2017, osmi_2018)
 states <- states(cb = TRUE)
-colnames(osmi_df) <- c("Age", "Gender", "Country", "State", "Mental Disorder", "Survey Year",
-                       "Anxiety Disorder", "Mood Disorder", "Psychotic Disorder", "Eating Disorder", 
+colnames(osmi_df) <- c("Age", "Gender", "Country", "State", "Mental Disorder",
+                       "Survey Year", "Anxiety Disorder", "Mood Disorder",
+                       "Psychotic Disorder", "Eating Disorder",
                        "Attenion Deficit Hyperactivity Disorder", "Personality Disorder",
-                       "Obsessive Compulsive Disorder", "Post Traumatic Stress Disorder", 
-                       "Stress Response Disorder", "Dissociative Disorder", "Substance Use Disorder", 
-                       "Addictive Disorder", "Other")
+                       "Obsessive Compulsive Disorder", "Post Traumatic Stress Disorder",
+                       "Stress Response Disorder", "Dissociative Disorder",
+                       "Substance Use Disorder","Addictive Disorder", "Other")
 
 state_summ <- osmi_df %>%
   group_by(State) %>%
@@ -64,7 +65,7 @@ state_summ <- osmi_df %>%
             prop = round((yes / (yes + no + possibly + unsure)) * 100, 2)
             )
 
-states_merged <- geo_join(states, osmi_df, "STUSPS", "state")  
+states_merged <- geo_join(states, osmi_df, "STUSPS", "state")
 pal <- colorNumeric("Greens", domain = state_summ$prop)
 interactive_map <- leaflet(states) %>%
   addProviderTiles("CartoDB.Positron") %>%
@@ -74,27 +75,26 @@ interactive_map <- leaflet(states) %>%
               fillOpacity = 0.7,
               weight = 0.2,
               smoothFactor = 0.2,
-              popup = ~paste0("State: ", NAME, "<br>Percent affected by Mental Issue: ", state_summ$prop)) %>%
+              popup = ~paste0("State: ", NAME, "<br>Percent affected by Mental Issue: ",
+                              state_summ$prop)) %>%
   addLegend(pal = pal,
             values = state_summ$prop,
             position = "bottomright",
             title = "Percentage of Survey Respondents diagnosed with a Mental Illness/Disorder")
-  
-interactive_map
 
-disorder_by_state <- osmi_df %>% 
+disorder_by_state <- osmi_df %>%
   group_by(State) %>%
-  summarise(`Anxiety Disorder` = sum(`Anxiety Disorder` == 
+  summarise(`Anxiety Disorder` = sum(`Anxiety Disorder` ==
                                        "Anxiety Disorder (Generalized, Social, Phobia, etc)"),
-            `Mood Disorder` = sum(`Mood Disorder` == 
+            `Mood Disorder` = sum(`Mood Disorder` ==
                                     "Mood Disorder (Depression, Bipolar Disorder, etc)"),
-            `Psychotic Disorder` = sum(`Psychotic Disorder` == 
+            `Psychotic Disorder` = sum(`Psychotic Disorder` ==
                                          "Psychotic Disorder (Schizophrenia, Schizoaffective, etc)"),
-            `Eating Disorder` = sum(`Eating Disorder` == 
+            `Eating Disorder` = sum(`Eating Disorder` ==
                                       "Eating Disorder (Anorexia, Bulimia, etc)"),
-            `Attenion Deficit Hyperactivity Disorder` = sum(`Attenion Deficit Hyperactivity Disorder` == 
+            `Attenion Deficit Hyperactivity Disorder` = sum(`Attenion Deficit Hyperactivity Disorder` ==
                                                               "Attention Deficit Hyperactivity Disorder"),
-            `Personality Disorder` = sum(`Personality Disorder` == 
+            `Personality Disorder` = sum(`Personality Disorder` ==
                                            "Personality Disorder (Borderline, Antisocial, Paranoid, etc)"),
             `Obsessive Compulsive Disorder` = sum(`Obsessive Compulsive Disorder` ==
                                                     "Obsessive-Compulsive Disorder"),
@@ -108,24 +108,23 @@ disorder_by_state <- osmi_df %>%
                                              "Substance Use Disorder"),
             `Addictive Disorder` = sum(`Addictive Disorder` ==
                                          "Addictive Disorder")
-            
   )
 
-get_state_disorders <- function(given_state){
-  return_plot_data <- disorder_by_state %>% 
+get_state_disorders <- function(given_state) {
+  return_plot_data <- disorder_by_state %>%
     filter(State == given_state)
-  
+
   return_plot_data_m <- melt(return_plot_data, id.vars = "State")
-  
-  return_plot <- ggplot(subset(return_plot_data_m, State == given_state), 
+
+  return_plot <- ggplot(subset(return_plot_data_m, State == given_state),
                         aes(x = variable, y = value, fill = variable)) +
     geom_bar(stat = "identity") +
     labs(x = "Disorders", y = "# of People") +
     ggtitle(paste("# of People Affected by a Specific Mental Disorder in", given_state)) +
     theme(legend.position = "none") +
-    theme(text = element_text(size=20)) +
+    theme(text = element_text(size = 20)) +
     scale_x_discrete(labels = wrap_format(10)) +
-    geom_text(aes(label=value), position=position_dodge(width=0.9), vjust=-0.25)
-  
+    geom_text(aes(label = value), position = position_dodge(width = 0.9), vjust = -0.25)
+
   return_plot
 }
